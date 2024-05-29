@@ -1,0 +1,50 @@
+<div id="createModal" class="mt-5" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog mt-5" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Crear Semestre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.nombre.label(class="form-control-label") }}
+                        {{ form.nombre(class="form-control") }}
+                        {% if form.nombre.errors %}
+                        {% for error in form.nombre.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.fecha_inicio.label(class="form-control-label") }}
+                        {{ form.fecha_inicio(class="form-control") }}
+                        {% if form.fecha_inicio.errors %}
+                        {% for error in form.fecha_inicio.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.fecha_fin.label(class="form-control-label") }}
+                        {{ form.fecha_fin(class="form-control") }}
+                        {% if form.fecha_fin.errors %}
+                        {% for error in form.fecha_fin.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
