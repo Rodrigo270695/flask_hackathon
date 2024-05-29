@@ -1,0 +1,69 @@
+{% extends "blank.html" %}
+
+{% block content %}
+
+<div class="section-body">
+    <div class="row">
+        <div id="modalContainer"></div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Lista de semestres</h4>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoSemestreModal">Nuevo</button>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-striped" id="table-1">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Estado</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for semestre in semestres %}
+                                <tr>
+                                    <td>{{ semestre.id_semestre }}</td>
+                                    <td>{{ semestre.nombre }}</td>
+                                    <td>{{ semestre.fecha_inicio }}</td>
+                                    <td>{{ semestre.fecha_fin }}</td>
+                                    <td>
+                                        {% if semestre.estado %}
+                                        Activo
+                                        {% else %}
+                                        Inactivo
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal">Editar</button>
+                                    </td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
