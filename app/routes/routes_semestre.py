@@ -24,7 +24,7 @@ def registrar_semestre():
     else:
         flash('Error', 'error')
         return render_template('Semestre/modal_registrar_semestre.html', form=form, error=True)
-
+ 
 
         
         
