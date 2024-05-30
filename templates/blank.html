@@ -6,12 +6,12 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>{% block title %}{% endblock %} - GO USAT </title>
   <link rel="stylesheet" href="/assets/css/app.min.css">
-  <link rel="stylesheet" href="/assets/bundles/datatables/datatables.min.css" />
-  <link rel="stylesheet" href="/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css" />
   <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/bundles/prism/prism.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/custom.css">
-  <link rel="stylesheet" href="/assets/bundles/prism/prism.css">
+  <link rel="stylesheet" href="/assets/bundles/datatables/datatables.min.css" />
+  <link rel="stylesheet" href="/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css" />
   <link rel='shortcut icon' type='image/x-icon' href='/assets/img/favicon.ico' />
 </head>
 
@@ -29,13 +29,13 @@
     
       <!-- Main Content -->
       <div class="main-content">
-        <section class="section">
-          <div class="section-body">
-            {% block content %}
-            <!-- Aquí se insertará el contenido de semestres.html -->
-            {% endblock %}
-          </div>
-        </section>
+        <div class="">
+          <!-- Contenido -->
+          {% block content %}
+
+          {% endblock %}
+        </div>
+
         <div class="">
 <!--         {% include 'layout/config.html' %} -->
         </div>
@@ -46,17 +46,18 @@
           <a href="templateshub.net">Desarrollo GO</a></a>
         </div>
         <div class="footer-right">
+          
         </div>
       </footer>
     </div>
   </div>
 
   <script src="/assets/js/app.min.js"></script>
+  <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
   <script src="/assets/bundles/datatables/datatables.min.js"></script>
   <script src="/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-  <script src="/assets/js/page/datatables.js"></script>
   <script src="/assets/bundles/prism/prism.js"></script>
   <script src="/assets/js/scripts.js"></script>
   <script src="/assets/js/custom.js"></script>
- 
+</body>
+</html>
