@@ -18,5 +18,5 @@ class Semestre(db.Model):
         self.fecha_fin = fecha_fin
 
     def __repr__(self):
-        return f"<Semestre(nombre={self.nombre})>"  
+        return f"<Semestre(nombre={self.nombre})>"   
     
