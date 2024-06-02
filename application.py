@@ -12,10 +12,8 @@ app.config['SECRET_KEY_APP'] = os.getenv('FLASK_SECRET_KEY_APP')
 app.secret_key = app.config['SECRET_KEY_APP']
 SECRET_KEY = app.secret_key
 
-# Inicializar la aplicación Flask con la configuración de la base de datos
-init_app(app)
 
-#comprobar la conexión
+init_app(app)
 check_database_connection()
 
 @app.route("/")

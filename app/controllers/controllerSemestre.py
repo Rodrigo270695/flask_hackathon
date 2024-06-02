@@ -1,5 +1,6 @@
 from app.models.Semestre import Semestre
 from database import db
+import traceback
 
 class ControllerSemestre:
 
@@ -17,9 +18,9 @@ class ControllerSemestre:
             semestre = Semestre(nombre=nombre, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin)
             db.session.add(semestre)
             db.session.commit()
-
             return semestre
         except Exception as e:
+            print(traceback.format_exc())
             return str(e)
 
         

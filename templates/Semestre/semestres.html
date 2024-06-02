@@ -7,108 +7,140 @@ Semestres
 {% block content %}
 
 <section class="section">
-<div class="section-body">
-  <div class="row">
-    <div id="modalContainer"></div>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h4>Lista de semestres</h4>
-        </div>
-        <div class="card-body">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#basicModal"
-          >
-            Basic Modal
-          </button>
-        </div>
+    <div class="section-body">
+        <div class="row">
+            <div id="modalContainer"></div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lista de semestres</h4>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#basicModal">
+                            Nuevo
+                        </button>
+                    </div>
 
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped" id="table-1">
-              <thead> 
-                <tr>
-                  <th>#</th>
-                  <th>Nombre</th>
-                  <th>Fecha Inicio</th>
-                  <th>Fecha Fin</th>
-                  <th>Estado</th>
-                  <th>Editar</th>
-                  <th>Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for semestre in semestres %}
-                <tr>
-                  <td>{{ semestre.id_semestre }}</td>
-                  <td>{{ semestre.nombre }}</td>
-                  <td>{{ semestre.fecha_inicio }}</td>
-                  <td>{{ semestre.fecha_fin }}</td>
-                  <td>
-                    {% if semestre.estado %} Activo {% else %} Inactivo {% endif %}
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                    >
-                      Editar
-                    </button>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-danger">
-                      Eliminar
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table-1">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for semestre in semestres %}
+                                    <tr>
+                                        <td>{{ semestre.id_semestre }}</td>
+                                        <td>{{ semestre.nombre }}</td>
+                                        <td>{{ semestre.fecha_inicio }}</td>
+                                        <td>{{ semestre.fecha_fin }}</td>
+                                        <td>
+                                            {% if semestre.estado %} Activo {% else %} Inactivo {% endif %}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                Editar
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger">
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-  </div>
 </section>
 
-<div class="section-body">
-  <div
-class="modal fade"
-id="basicModal"
-tabindex="-1"
-role="dialog"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
->
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModal">Registrar semestre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formSemestre" class="form" action="{{url_for('semestre_routes.registrar_semestre')}}" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.nombre.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                            </div>
+                            {{ form.nombre(class="form-control") }}
+                        </div>
+                        {% if form.nombre.errors %}
+                            {% for error in form.nombre.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.fecha_inicio.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                            {{ form.fecha_inicio(class="form-control") }}
+                        </div>
+                        {% if form.fecha_inicio.errors %}
+                        {% for error in form.fecha_inicio.errors %}
+                        <span  class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.fecha_fin.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                            {{ form.fecha_fin(class="form-control") }}
+                        </div>
+                        {% if form.fecha_fin.errors %}
+                        {% for error in form.fecha_fin.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Registrar</button>
+                    <button type="button" class="btn btn-danger m-t-15 waves-effect">Cancelar</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">Content goes here..</div>
-    <div class="modal-footer bg-whitesmoke br">
-      <button type="button" class="btn btn-primary">Save changes</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        Close
-      </button>
-    </div>
-  </div>
-</div>
 </div>
 
+
 {% endblock %}
+
+
+

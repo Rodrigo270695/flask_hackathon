@@ -10,15 +10,13 @@ class Semestre(db.Model):
     fecha_fin = db.Column(db.Date, nullable=False)
     estado = db.Column(db.Boolean, nullable=False, default=True)
     
-    def __init__(self, id_semestre, nombre, fecha_inicio, fecha_fin):
+    def __init__(self, nombre, fecha_inicio, fecha_fin):
 
-        self.id_semestre = id_semestre
+
         self.nombre = nombre
         self.fecha_inicio = fecha_inicio
         self.fecha_fin = fecha_fin
 
-        
-    
     def __repr__(self):
-        return f"<Semestre(id_semestre={self.id_semestre} , nombre={self.nombre})>"  
+        return f"<Semestre(nombre={self.nombre})>"  
     

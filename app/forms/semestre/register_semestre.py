@@ -10,7 +10,7 @@ class RegisterSemestre(FlaskForm):
     fecha_fin = DateField('Fecha de fin', validators=[DataRequired()])
     submit = SubmitField('Registrar')
     
-    def validar_nombre(self, nombre):
+    def validate_nombre(self, nombre):
         semestre = Semestre.query.filter_by(nombre=nombre.data).first()
         if semestre:
             raise ValidationError('El semestre ya existe')
