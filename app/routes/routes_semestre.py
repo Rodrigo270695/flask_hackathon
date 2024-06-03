@@ -36,9 +36,11 @@ def get_semestre(id):
     else:
         return jsonify({'error': 'Semestre no encontrado'}), 404
 
+
 @semestre_routes.route('/editar_semestre/<int:id>', methods=['POST'])
 def editar_semestre(id):
-    form = RegisterSemestre(request.form)
+    semestre = controller_semestre.obtener_semestre(id)
+    form = RegisterSemestre(request.form, semestre_id=semestre.id_semestre if semestre else None)
     if form.validate_on_submit():
         if controller_semestre.actualizar_semestre(id, form.nombre.data, form.fecha_inicio.data, form.fecha_fin.data):
             flash('Semestre actualizado correctamente', 'success')
@@ -50,13 +52,16 @@ def editar_semestre(id):
         flash('Error al actualizar el semestre', 'error')
         errors = {field: error[0] for field, error in form.errors.items()}
         return jsonify(success=False, errors=errors)
+        
+        
+        
 
 @semestre_routes.route('/cambiar_estado_semestre/<int:id>', methods=['POST'])
 def cambiar_estado_semestre(id):
     try:
         semestre = controller_semestre.obtener_semestre(id)
         if semestre:
-            nuevo_estado = not semestre.estado  # Cambia el estado actual
+            nuevo_estado = not semestre.estado  
             if controller_semestre.cambiar_estado(id, nuevo_estado):
                 flash('Cambio de estado correctamente', 'success')
                 return jsonify(success=True)

@@ -12,14 +12,12 @@
 
     <li class="menu-header">Mantenimientos</li>
     <li class="dropdown">
-      <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Gestión de
-          Usuarios</span></a>
+      <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Gestión de Usuarios</span></a>
       <ul class="dropdown-menu">
-        <li><a class="nav-link" href="">Roles</a></li>
-        <li><a class="nav-link" href="">Usuarios</a></li>
+        <li><a class="nav-link" href="{{url_for('usuario_routes.listar_usuarios')}}">Usuarios</a></li>
         <li><a class="nav-link" href="">Estudiantes</a></li>
-        <li><a class="nav-link" href="">Docentes</a></li>
-      
+        <li><a class="nav-link" href="{{url_for('docente_routes.listar_docentes')}}">Docentes</a></li>
+
       </ul>
     </li>
     <li class="menu-header">Horarios</li>

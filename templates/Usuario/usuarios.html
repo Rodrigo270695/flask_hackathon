@@ -1,0 +1,299 @@
+{% extends 'blank.html' %}
+
+{% block title %} Usuarios {% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="section-body">
+        <div class="row">
+            <div id="modalContainer"></div>
+            <div class="col-12">
+                <div class="card"> 
+                    <div class="card-header">
+                        <h4>Lista de usuarios</h4>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-success" data-toggle="modal" id="nuevoUsuario">
+                            <i class="fas fa-plus"></i>  Nuevo
+                        </button> 
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="table-1">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Email</th>
+                                        <th>Documento de Identidad</th>
+                                        <th>Nmero de Celular</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for usuario in usuarios %}
+                                    <tr>
+                                        <td>{{ usuario.id_usuario }}</td>
+                                        <td>{{ usuario.nombres }}</td>
+                                        <td>{{ usuario.apellidos }}</td>
+                                        <td>{{ usuario.email }}</td>
+                                        <td>{{ usuario.doc_identidad }}</td>
+                                        <td>{{ usuario.numero_celular }}</td>
+                                        <td>{{ usuario.rol.nombre }}</td>
+
+                                        <td>
+                                            {% if usuario.estado %} Activo {% else %} Inactivo {% endif %}
+                                        </td>
+
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-primary editarUsuario" data-toggle="modal" {% if not usuario.estado %} disabled {% endif %}>
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-warning cambiarEstado ml-2" data-id="{{ usuario.id_usuario }}" data-estado="{{ usuario.estado }}">
+                                                {% if usuario.estado %}
+                                                    <i class="fas fa-toggle-on"></i>
+                                                {% else %}
+                                                    <i class="fas fa-toggle-off"></i>
+                                                {% endif %}
+                                            </button>
+                                            <button type="button" class="btn btn-danger ml-2" {% if not usuario.estado %} disabled {% endif %}>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+
+                                
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModal">Registrar usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formUsuario" class="form" action="{{ url_for('usuario_routes.registrar_usuario') }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" id="usuario_id" name="usuario_id">
+                    <div class="form-group">
+                        {{ form.nombres.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            {{ form.nombres(class="form-control") }}
+                        </div>
+                        <div class="text-danger" id="nombres-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.apellidos.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            {{ form.apellidos(class="form-control") }} 
+                        </div>
+                        <div class="text-danger" id="apellidos-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                            {{ form.email(class="form-control") }}
+                        </div>
+                        <div class="text-danger" id="email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.doc_identidad.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                            </div>
+                            {{ form.doc_identidad(class="form-control") }}
+                        </div>
+                        <div class="text-danger" id="doc_identidad-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.numero_celular.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                            </div>
+                            {{ form.numero_celular(class="form-control") }}
+                        </div>
+                        <div class="text-danger" id="numero_celular-error"></div>
+                    </div>
+                
+                    <div class="form-group">
+                        {{ form.id_rol.label(class="form-control-label") }}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            {{ form.id_rol(class="form-control") }}
+                        </div>
+                        <div class="text-danger" id="rol-error"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect" id="submitButton">Registrar</button>
+                    <button type="button" class="btn btn-danger m-t-15 waves-effect" data-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+$('#nuevoUsuario').click(function() {
+        $('#formUsuario')[0].reset();
+        $('#formModal').text('Registrar usuario');
+        $('#submitButton').text('Registrar');
+        $('#formUsuario').attr('action', "{{ url_for('usuario_routes.registrar_usuario') }}");
+        $('#basicModal').modal('show');
+    });
+
+    $(document).ready(function() {
+        $('#formUsuario').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $('#basicModal').modal('hide');
+                        location.reload();
+                    } else {
+                        $('.text-danger').text('');
+                        for (const [key, value] of Object.entries(response.errors)) {
+                            const errorElement = $('#'+key+'-error');
+                            errorElement.text(value);
+                        }
+                    }
+                }
+            });
+        });
+    
+        $('#basicModal').on('hidden.bs.modal', function () {
+            $('#formUsuario')[0].reset();
+            $('.text-danger').text('');
+            $('#formModal').text('Registrar usuario');
+            $('#submitButton').text('Registrar');
+            $('#formUsuario').attr('action', "{{ url_for('usuario_routes.registrar_usuario') }}");
+        });
+    
+        $('.btn-danger[data-dismiss="modal"]').click(function() {
+            $('#formUsuario')[0].reset();
+            $('.text-danger').text('');
+        });
+    
+    });
+
+
+    $('.editarUsuario').click(function() {
+        var usuarioId = $(this).closest('tr').find('td:first').text();
+        $.ajax({
+            url: '/usuario/usuario/' + usuarioId,
+            method: 'GET',
+            success: function(data) {
+                $('#formModal').text('Editar usuario');
+                $('#submitButton').text('Actualizar');
+                $('#formUsuario').attr('action', '/usuario/editar_usuario/' + usuarioId);
+                $('#usuario_id').val(usuarioId);
+                $('#formUsuario [name="nombres"]').val(data.nombres);
+                $('#formUsuario [name="apellidos"]').val(data.apellidos);
+                $('#formUsuario [name="email"]').val(data.email);
+                $('#formUsuario [name="doc_identidad"]').val(data.doc_identidad);
+                $('#formUsuario [name="numero_celular"]').val(data.numero_celular);
+                $('#formUsuario [name="id_rol"]').val(data.id_rol);
+                $('#basicModal').modal('show');
+            },
+            error: function() {
+                alert('Error al cargar los datos del usuario.');
+            }
+        });
+    });
+
+
+    $(document).ready(function() {
+            $('.cambiarEstado').click(function() {
+                var usuarioId = $(this).data('id');
+                var estadoActual = $(this).data('estado');
+                var nuevoEstado = estadoActual ? false : true;
+                var estadoTexto = nuevoEstado ? 'activo' : 'inactivo';
+        
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Vas a cambiar el estado a " + estadoTexto,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, cambiar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/usuario/cambiar_estado_usuario/' + usuarioId,
+                            method: 'POST',
+                            data: { nuevoEstado: nuevoEstado },
+                            success: function(response) {
+                                if(response.success) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+</script>
+
+
+
+
+
+{% endblock %}
+
+

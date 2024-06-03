@@ -19,4 +19,3 @@ class Semestre(db.Model):
 
     def __repr__(self):
         return f"<Semestre(nombre={self.nombre})>"   
-    
