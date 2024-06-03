@@ -15,7 +15,7 @@
       <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Gestión de Usuarios</span></a>
       <ul class="dropdown-menu">
         <li><a class="nav-link" href="{{url_for('usuario_routes.listar_usuarios')}}">Usuarios</a></li>
-        <li><a class="nav-link" href="">Estudiantes</a></li>
+        <li><a class="nav-link" href="{{url_for('estudiante_routes.listar_estudiantes')}}">Estudiantes</a></li>
         <li><a class="nav-link" href="{{url_for('docente_routes.listar_docentes')}}">Docentes</a></li>
 
       </ul>
@@ -26,7 +26,7 @@
           Horarios</span></a>
       <ul class="dropdown-menu">
         <li><a class="nav-link" href="">Horario</a></li>
-        <li><a class="nav-link" href="">Grupo Horario</a></li>
+        <li><a class="nav-link" href="{{url_for('grupo_horario_routes.listar_grupos_horarios')}}">Grupo Horario</a></li>
       </ul>
     </li>
     <li class="menu-header">Semestres</li>
